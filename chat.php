@@ -33,8 +33,8 @@
 		while(($buff=fgets($fp)) != false)
 		{
 			$line = explode("\t", $buff);
-			echo $line[0];
-			echo "|";
+			echo $line[0].":";
+			echo $line[1];
 			echo "<span class=\"timestamp\">".date("Y-m-d H:i:s", $line[1])."</span>";
 			echo "<br>\n";
 		}
