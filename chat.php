@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<?php
+	setcookie("uname", $_GET["uname"], time()+(60*60*24*7));
+?><!DOCTYPE html>
 <html>
 	<head>
 		<title>チャット</title>
