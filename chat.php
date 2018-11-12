@@ -26,6 +26,10 @@
 	<body>
 		<h1>秘密のチャット</h1>
 		<form action="write.php">
+			<?php
+				echo $_GET['uname'];
+			?>
+			<input type="hidden" name="uname" value="<?=$_GET['uname']?>">
 			<input type="text" name="msg">
 			<button>送信</button>
 		</form>
@@ -37,7 +41,7 @@
 			$line = explode("\t", $buff);
 			echo $line[0].":";
 			echo $line[1];
-			echo "<span class=\"timestamp\">".date("Y-m-d H:i:s", $line[1])."</span>";
+			echo "<span class=\"timestamp\">".date("Y-m-d H:i:s", $line[2])."</span>";
 			echo "<br>\n";
 		}
 		fclose($fp);
