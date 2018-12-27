@@ -36,6 +36,7 @@
 			<input type="hidden" id="uname" value="<?= $_GET['uname'] ?>">
 			<input type="text" id="msg">
 			<button type="button" id="sbmt">送信</button>
+			<button type="button" id="reflash">更新</button>
 		</form>
 		
 		<div id="chatlog"></div>
@@ -44,8 +45,9 @@
 			window.onload = function()
 			{
 				auth();
+				getLog();
 				
-				getLog();	
+				// 送信	
 				document.querySelector("#sbmt").addEventListener("click", function()
 				{
 					var uname = document.querySelector("#uname").value;
@@ -78,6 +80,15 @@
 					(
 						"uname=" + encodeURIComponent(uname) + "&" + "msg=" + encodeURIComponent(msg)
 					);
+										
+					getLog();	// ログを更新
+					document.getElementById("msg").value = "";	// 入力欄をクリア
+				});
+				
+				// ログを更新
+				document.querySelector("#reflash").addEventListener("click", function()
+				{
+					getLog();
 				});
 			};
 			
