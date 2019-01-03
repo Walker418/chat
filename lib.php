@@ -21,6 +21,7 @@
 	
 	class ChatAPI extends APIBase
 	{
+		// ログイン
 		function auth($id, $pw)
 		{
 			$sql = "SELECT user_id, pw, name FROM user WHERE user_id=?";
@@ -52,6 +53,7 @@
 			$this->sendjson($flag);
 		}
 	
+		// メッセージの取得
 		function get($name=null)
 		{
 			$result = [];
@@ -100,6 +102,7 @@
 			$this->sendjson($flag, $result);
 		}
 		
+		// メッセージの書き込み
 		function set($message)
 		{
 			session_start();
@@ -120,6 +123,33 @@
 						$message,
 						date("Y-m-d H:i:s", time())]
 				);
+				$dbh->commit();
+				$flag = true;
+			}
+			catch (PDOException $e)
+			{
+				$dbh->rollBack();
+				$flag = false;
+			}
+			
+			$this->sendjson($flag);
+		}
+		
+		// ユーザーの追加
+		function registration($uname, $pw)
+		{		
+			// データベースにユーザー情報を追加
+			$sql = 'INSERT INTO user(pw,name) VALUES(?,?)';
+			try
+			{
+				$dbh = connectDB();
+				$dbh->beginTransaction();
+				$sth = $dbh->prepare($sql);
+				$sth->execute
+				([
+					$pw,
+					$uname
+				]);
 				$dbh->commit();
 				$flag = true;
 			}
